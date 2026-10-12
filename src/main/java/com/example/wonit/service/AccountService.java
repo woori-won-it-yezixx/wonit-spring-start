@@ -32,9 +32,18 @@ public class AccountService {
                 .orElseThrow(() -> new AccountNotFoundException(accountNo + "계좌를 찾을 수 없습니다."));
     }
 
-
     // '정상' 계좌만 출력
-
+    public List<String> normalAccountNos() {
+        return accountRepository.findAll().stream()
+                .filter(account -> account.getStatus().equals("정상"))
+                .map(Account::getStatus)
+                .toList();
+    }
 
     // 전체 계좌 중 accountType이 '적금'인 경우만 금액을 더해서 리턴
+    public long savingBalanceSum() {
+        return accountRepository.findAll().stream()
+                .filter(account -> account.getAccountType().equals("적금"))
+                .mapToLong(Account::getBalance).sum();
+    }
 }

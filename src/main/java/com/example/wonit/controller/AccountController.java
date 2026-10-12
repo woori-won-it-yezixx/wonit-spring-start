@@ -36,4 +36,16 @@ public class AccountController {
     public AccountResponse findOne(@PathVariable String accountNo) throws AccountNotFoundException {
         return AccountResponse.from(accountService.getAccount(accountNo));
     }
+
+    // '정상' 계좌만 출력
+    @GetMapping("/report1")
+    public List<String> normalAccountNos(){
+        return accountService.normalAccountNos();
+    }
+
+    // 전체 계좌 중 accountType이 '적금'인 경우만 금액을 더해서 리턴
+    @GetMapping("/report2")
+    public long savingBalanceSum(){
+        return accountService.savingBalanceSum();
+    }
 }
