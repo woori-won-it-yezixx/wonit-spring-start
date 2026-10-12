@@ -6,10 +6,7 @@ import com.example.wonit.model.Account;
 import com.example.wonit.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,5 +44,21 @@ public class AccountController {
     @GetMapping("/report2")
     public long savingBalanceSum(){
         return accountService.savingBalanceSum();
+    }
+
+    // min~ max balance 사이의 계좌 정보를 검색
+    @GetMapping("/balance")
+    public List<Account> getAccountBetweenBalance(@RequestParam long minBalance, @RequestParam long maxBalance) {
+        return accountService.getAccountBetweenBalance(minBalance, maxBalance);
+    }
+
+    @GetMapping("/report3")
+    public List<Account> getAccountsWithStatus(@RequestParam String status){
+        return accountService.getAccountsWithStatus(status);
+    }
+
+    @GetMapping("/report4")
+    public List<Account> getAccountWithAccountType(@RequestParam String accountType){
+        return accountService.getAccountWithAccountType(accountType);
     }
 }

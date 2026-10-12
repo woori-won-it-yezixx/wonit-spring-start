@@ -46,4 +46,26 @@ public class AccountService {
                 .filter(account -> account.getAccountType().equals("적금"))
                 .mapToLong(Account::getBalance).sum();
     }
+
+    // min~max 사이 금액이 든 계좌만 조회하는 메서드
+    // AccountRepository 인터페이스의 사용자 정의 쿼리 메소드를 사용합니다
+    public List<Account> getAccountBetweenBalance(long minBalance, long maxBalance) {
+        return accountRepository.findByBalanceBetween(minBalance, maxBalance);
+    }
+
+    // balance 순서대로 작은 금액에서 큰 금액 순서로 모든 계좌 조회
+    public List<Account> getOrderedAccounts(){
+        return accountRepository.findAllOrderBy();
+    }
+
+    // status 에서 정상 / 휴면 / 지급정지 들어오면 각 상황에 맞는 계좌만 필터링 -> 예외나 엣지케이스 테스트케이스 같이 만들고 처리
+    public List<Account> getAccountsWithStatus(String status){
+        return accountRepository.findByStatus(status);
+    }
+
+    // account_type에 적금 / 입출금 들어오면 각 상황에 맞는 계좌만 필터링
+    public List<Account> getAccountWithAccountType(String accountType){
+        return accountRepository.findByAccountType(accountType);
+    }
 }
+
