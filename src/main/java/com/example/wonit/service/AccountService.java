@@ -36,7 +36,7 @@ public class AccountService {
     public List<String> normalAccountNos() {
         return accountRepository.findAll().stream()
                 .filter(account -> account.getStatus().equals("정상"))
-                .map(Account::getStatus)
+                .map(Account::getAccountNo)
                 .toList();
     }
 
