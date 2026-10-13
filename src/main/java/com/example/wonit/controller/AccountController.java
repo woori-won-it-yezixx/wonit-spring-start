@@ -52,13 +52,24 @@ public class AccountController {
         return accountService.getAccountBetweenBalance(minBalance, maxBalance);
     }
 
-    @GetMapping("/report3")
-    public List<Account> getAccountsWithStatus(@RequestParam String status){
-        return accountService.getAccountsWithStatus(status);
+    @GetMapping("/sort")
+    public List<AccountResponse> findAllAccountsByBalanceAsc() {
+        return accountService.findAllAccountsByBalanceAsc().stream()
+                .map(AccountResponse::from)
+                .toList();
     }
 
-    @GetMapping("/report4")
-    public List<Account> getAccountWithAccountType(@RequestParam String accountType){
-        return accountService.getAccountWithAccountType(accountType);
+    @GetMapping("/status/{status}")
+    public List<AccountResponse> findAllAccountsByStatus(@PathVariable String status){
+        return accountService.findAllAccountsByStatus(status).stream()
+                .map(AccountResponse::from)
+                .toList();
+    }
+
+    @GetMapping("/accountType/{accountType}")
+    public List<AccountResponse> findAllAccountsByAccountType(@PathVariable String accountType){
+        return accountService.findAllAccountsByAccountType(accountType).stream()
+                .map(AccountResponse::from)
+                .toList();
     }
 }

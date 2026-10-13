@@ -20,4 +20,8 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     List<Account> findByStatus(String status);
 
     List<Account> findByAccountType(String accountType);
+
+    List<Account> findByStatusLike(String status);
+
+    List<Account> findByStatusContains(String status);
 }

@@ -54,17 +54,17 @@ public class AccountService {
     }
 
     // balance 순서대로 작은 금액에서 큰 금액 순서로 모든 계좌 조회
-    public List<Account> getOrderedAccounts(){
+    public List<Account> findAllAccountsByBalanceAsc(){
         return accountRepository.findAllOrderBy();
     }
 
     // status 에서 정상 / 휴면 / 지급정지 들어오면 각 상황에 맞는 계좌만 필터링 -> 예외나 엣지케이스 테스트케이스 같이 만들고 처리
-    public List<Account> getAccountsWithStatus(String status){
-        return accountRepository.findByStatus(status);
+    public List<Account> findAllAccountsByStatus(String status){
+        return accountRepository.findByStatusContains(status);
     }
 
     // account_type에 적금 / 입출금 들어오면 각 상황에 맞는 계좌만 필터링
-    public List<Account> getAccountWithAccountType(String accountType){
+    public List<Account> findAllAccountsByAccountType(String accountType){
         return accountRepository.findByAccountType(accountType);
     }
 }
