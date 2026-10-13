@@ -1,6 +1,7 @@
 package com.example.wonit.controller;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 // 사용자의 요청을 받아서 화면에 돌려주는 계층
@@ -8,9 +9,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/hello")
 public class HelloController { // localhost:8080/hello
+    @Value("${app.title}")
+    private String appTitle;
+
     @GetMapping
     public String sayHello(){
-        return "Hello, Spring Boot!";
+        return "Hello, Spring Boot! " + appTitle;
     }
 
 //    @GetMapping("/{id}")// localhost:8080/hello/123
