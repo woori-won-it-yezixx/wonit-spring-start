@@ -102,6 +102,9 @@ INSERT INTO account (account_id, customer_id, account_no, account_type, balance,
     (2, 1, '1002-345-112233', '적금',   1099500, '정상'),
     (3, 1, '1002-345-998877', '적금',    497000, '휴면');
 
+ALTER TABLE account
+    ALTER COLUMN account_id RESTART WITH 4;
+
 --INSERT INTO employee (employee_id, name, duty) VALUES
 --    (1, '박지훈', '수신'),
 --    (2, '이서연', '여신');

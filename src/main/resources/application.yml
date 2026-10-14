@@ -31,7 +31,7 @@ spring:
     show-sql: true            # 실행되는 SQL 을 콘솔에 찍는다
     properties:
       hibernate:
-#        format_sql: true      # SQL 을 줄바꿈해서 사람이 읽기 좋게 출력한다
+        format_sql: true      # SQL 을 줄바꿈해서 사람이 읽기 좋게 출력한다
 
     # Hibernate가 테이블을 생성한 후 data.sql 실행
     defer-datasource-initialization: true
@@ -41,3 +41,13 @@ spring:
 
 app:
   title: ${title:스프링부트 어플리케이션 3}
+
+logging:
+  level:
+    root: info
+    com.example.wnoit: debug              # wonit 패키지만 자세히
+    org.hibernate.sql: debug              # 실행되는 SQL
+    org.hibernate.orm.jdbc.bind: trace    # SQL의 ? 자리에 실제로 들어간 값
+
+file:
+  name: logs/wonit.log
