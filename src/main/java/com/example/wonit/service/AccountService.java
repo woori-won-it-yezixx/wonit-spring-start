@@ -65,7 +65,7 @@ public class AccountService {
 
     // account_type에 적금 / 입출금 들어오면 각 상황에 맞는 계좌만 필터링
     public List<Account> findAllAccountsByAccountType(String accountType){
-        return accountRepository.findByAccountType(accountType);
+        return accountRepository.findByAccountTypeLike(accountType);
     }
 }
 

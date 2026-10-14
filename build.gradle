@@ -32,6 +32,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	implementation("mysql:mysql-connector-java:8.0.33")
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.1.1'
 }
 
 tasks.named('test') {

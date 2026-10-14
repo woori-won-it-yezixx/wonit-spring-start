@@ -24,4 +24,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     List<Account> findByStatusLike(String status);
 
     List<Account> findByStatusContains(String status);
+
+    List<Account> findByAccountTypeLike(String accountType);
 }
