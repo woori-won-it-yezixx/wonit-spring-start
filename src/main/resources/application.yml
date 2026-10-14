@@ -6,16 +6,16 @@ spring:
     name: wonit
   datasource:
     #   h2 database
-#    url: jdbc:h2:mem:testdb
-#    driver-class-name: org.h2.Driver
-#    username: sa
-#    password:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
 
   ## MySQL Database
-    url: jdbc:mysql://${host}:3306/${database}?useSSL=false&serverTimezone=Asia/Seoul
-    username: ${username}
-    password: ${password}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://${host}:3306/${database}?useSSL=false&serverTimezone=Asia/Seoul
+#    username: ${username}
+#    password: ${password}
+#    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       # ddl-auto 옵션: create, create-drop, update, validate, none
@@ -24,9 +24,9 @@ spring:
       # - update: 기존 테이블 구조를 엔티티에 맞춰 변경하려고 시도합니다.
       # - validate: 구조가 맞는지만 검사합니다.
       # - none: 스키마 관련 자동 처리를 하지 않습니다.
-      ddl-auto: validate
-#    database-platform: org.hibernate.dialect.H2Dialect
-    database-platform: org.hibernate.dialect.MySQLDialect
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.H2Dialect
+#    database-platform: org.hibernate.dialect.MySQLDialect
 
     show-sql: true            # 실행되는 SQL 을 콘솔에 찍는다
     properties:

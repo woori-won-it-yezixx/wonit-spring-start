@@ -72,7 +72,7 @@
 --) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 --
 ---- ⑦ 거래 — 🚨 customer_id 가 없습니다. 거래의 주인은 account 를 거쳐 JOIN 으로 찾습니다
---CREATE TABLE `transaction` (
+-- CREATE TABLE `transaction` (
 --    tx_id BIGINT AUTO_INCREMENT PRIMARY KEY,
 --    account_id INT NOT NULL,
 --    transfer_id BIGINT NULL,
@@ -86,7 +86,7 @@
 --    CONSTRAINT fk_tx_account FOREIGN KEY (account_id) REFERENCES account (account_id),
 --    CONSTRAINT fk_tx_transfer FOREIGN KEY (transfer_id) REFERENCES transfer (transfer_id),
 --    INDEX idx_tx_account_dt (account_id, tx_datetime)
---) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 --
 ---- ----------------------------------------------------------------------------
 ----  데이터
@@ -114,15 +114,15 @@ INSERT INTO account (account_id, customer_id, account_no, account_type, balance,
 --
 ---- 거래 7건. 1번 계좌의 balance_after 는 "화면(React)에 찍혀 있던 값을 그대로 옮긴 것"이라
 ---- 서로 맞지 않습니다 — 일부러 그렇게 만든 비정규화 사고 현장입니다. 고치지 마세요.
---INSERT INTO `transaction`
---    (account_id, transfer_id, tx_type, amount, balance_after, category, memo, counterparty, tx_datetime) VALUES
---    (1, NULL, '출금',   45000, 3866000, '쇼핑', '운동화',   '무신사',          '2026-08-31 20:14:00'),
---    (1, NULL, '입금', 2400000, 3911000, '급여', '9월급여',  '우리회사',        '2026-09-01 09:00:00'),
---    (1, NULL, '출금',   12000, 1511000, '식비', '점심',     '김밥천국',        '2026-09-02 12:31:00'),
---    (2, NULL, '입금',  300000,  900000, '저축', '적금납입', '본인',            '2026-08-05 10:00:00'),
---    (2, NULL, '입금',  300000, 1200000, '저축', '적금납입', '본인',            '2026-09-05 10:00:00'),
---    (2,    1, '출금',  100500, 1099500, '이체', '적금 이체', '1002-345-998877', '2026-09-20 14:00:00'),
---    (3,    1, '입금',  100000,  497000, '이체', '적금 이체', '1002-345-112233', '2026-09-20 14:00:00');
+INSERT INTO `transaction`
+   (account_id, transfer_id, tx_type, amount, balance_after, category, memo, counterparty, tx_datetime) VALUES
+   (1, NULL, '출금',   45000, 3866000, '쇼핑', '운동화',   '무신사',          '2026-08-31 20:14:00'),
+   (1, NULL, '입금', 2400000, 3911000, '급여', '9월급여',  '우리회사',        '2026-09-01 09:00:00'),
+   (1, NULL, '출금',   12000, 1511000, '식비', '점심',     '김밥천국',        '2026-09-02 12:31:00'),
+   (2, NULL, '입금',  300000,  900000, '저축', '적금납입', '본인',            '2026-08-05 10:00:00'),
+   (2, NULL, '입금',  300000, 1200000, '저축', '적금납입', '본인',            '2026-09-05 10:00:00'),
+   (2,    1, '출금',  100500, 1099500, '이체', '적금 이체', '1002-345-998877', '2026-09-20 14:00:00'),
+   (3,    1, '입금',  100000,  497000, '이체', '적금 이체', '1002-345-112233', '2026-09-20 14:00:00');
 --
 ---- ----------------------------------------------------------------------------
 ----  확인 ① 행 수 — 고객 1 / 연락처 2 / 계좌 3 / 직원 2 / 계좌담당 3 / 이체 1 / 거래 7
