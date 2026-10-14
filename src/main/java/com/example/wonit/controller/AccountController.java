@@ -1,5 +1,6 @@
 package com.example.wonit.controller;
 
+import com.example.wonit.dto.AccountCreateRequest;
 import com.example.wonit.dto.AccountResponse;
 import com.example.wonit.exception.AccountNotFoundException;
 import com.example.wonit.model.Account;
@@ -8,8 +9,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @Tag(name = "계좌 조회 테스트 API", description = "swagger 테스트를 진행하는 API")
@@ -75,5 +80,25 @@ public class AccountController {
         return accountService.findAllAccountsByAccountType(accountType).stream()
                 .map(AccountResponse::from)
                 .toList();
+    }
+
+    //@RequestBody : 민감정보, 주소줄에 전달하기에 너무 긴 정보 받아옴
+    @PostMapping
+    public AccountResponse createAccount(
+            @RequestBody AccountCreateRequest request
+    ) {
+        Account account = accountService.createAccount(request);
+
+        // 새로 발급된 accountNo 사용하여 redirect하는 부분
+//        URI location = ServletUriComponentsBuilder
+//                .fromCurrentContextPath()
+//                .path("/api/accounts/{accountNo}")
+//                .buildAndExpand(account.getAccountNo())
+//                .toUri();
+//
+//        return ResponseEntity
+//                .created(location)
+//                .body(AccountResponse.from(account));
+        return AccountResponse.from(account);
     }
 }
