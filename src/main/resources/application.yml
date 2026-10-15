@@ -49,5 +49,5 @@ logging:
     org.hibernate.sql: debug              # 실행되는 SQL
     org.hibernate.orm.jdbc.bind: trace    # SQL의 ? 자리에 실제로 들어간 값
 
-file:
-  name: logs/wonit.log
+  file:
+    name: logs/wonit.log
