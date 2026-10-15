@@ -7,6 +7,7 @@ import lombok.*;
 // 외부에서 접근할 수 없도록 @Setter 닫아둠
 // 보안이 중요한 데이터 처리는 Setter 직접 만들어서 사용
 // @Data
+@Setter
 @Getter
 @ToString
 @EqualsAndHashCode

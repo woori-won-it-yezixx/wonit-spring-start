@@ -1,6 +1,7 @@
 package com.example.wonit.service;
 
 import com.example.wonit.dto.AccountCreateRequest;
+import com.example.wonit.dto.AccountResponse;
 import com.example.wonit.model.Account;
 import com.example.wonit.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -116,6 +117,20 @@ public class AccountService {
         );
         log.info("생성된 계좌 정보={}",account.toString());
         return account;
+    }
+
+    public Account updateOne(String accountNo, AccountCreateRequest request) {
+        // 원본 가져오기
+        Account account = getAccount(accountNo);
+        // 화면에 뿌리기 (통째로 바꾸는 경우에는 생략 가능 / 일부만 가져올 경우에는)
+        //  - 원본의 내용과 일치하는 필드인지 -> 일치하면 변경, 그렇지 않으면 스킵
+        account.setCustomerId(request.customerId());
+        account.setAccountType(request.accountType());
+        // 바뀐 내용 새로 객체로 저장하기
+        // DB에 반영하기(레파지토리)
+        Account saved = accountRepository.save(account);
+        // 반영된 상태 확인하기
+        return saved;
     }
 }
 
