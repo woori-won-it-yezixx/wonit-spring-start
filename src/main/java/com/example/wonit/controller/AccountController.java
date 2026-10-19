@@ -1,6 +1,7 @@
 package com.example.wonit.controller;
 
 import com.example.wonit.dto.AccountCreateRequest;
+import com.example.wonit.dto.AccountPatchRequest;
 import com.example.wonit.dto.AccountResponse;
 import com.example.wonit.exception.AccountNotFoundException;
 import com.example.wonit.exception.InvalidAccountRequestException;
@@ -202,8 +203,16 @@ public class AccountController {
         return AccountResponse.from(accountService.updateOne(accountNo, request));
     }
 
-//    @PostMapping("/{accountNo}/withdrawals")
-//    public ResponseEntity<AccountResponse> withdraw(@RequestBody AccountWithdrawRequest request){
-//
-//    }
+    // PATCH
+    @PatchMapping("/{accountNo}/status")
+    public AccountResponse changeStatus(@PathVariable("accountNo") String accountNo,
+                                     @RequestBody AccountPatchRequest request){
+        return AccountResponse.from(accountService.changeStatus(accountNo, request));
+    }
+
+    @DeleteMapping("/{accountNo}")
+    public void deleteOne(@PathVariable("accountNo") String accountNo){
+//        accountService.deleteOneByAccountNo(accountNo);
+        accountService.deleteOne(accountNo);
+    }
 }

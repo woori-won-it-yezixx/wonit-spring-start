@@ -1,6 +1,7 @@
 package com.example.wonit.service;
 
 import com.example.wonit.dto.AccountCreateRequest;
+import com.example.wonit.dto.AccountPatchRequest;
 import com.example.wonit.dto.AccountResponse;
 import com.example.wonit.model.Account;
 import com.example.wonit.repository.AccountRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import com.example.wonit.exception.*;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -131,6 +133,44 @@ public class AccountService {
         Account saved = accountRepository.save(account);
         // 반영된 상태 확인하기
         return saved;
+    }
+
+    public Account changeStatus(String accountNo, AccountPatchRequest request) {
+        Account account = getAccount(accountNo);
+
+        if (request.accountType() != null) {
+            if (!List.of("입출금", "적금").contains(request.accountType())) {
+                throw new InvalidAccountRequestException("지원하지 않는 accountType입니다.");
+            }
+            account.setAccountType(request.accountType());
+        }
+
+        if (request.status() != null) {
+            if ("정상".equals(request.status())) {
+                account.setStatus("정상");
+            } else if ("휴면".equals(request.status())) {
+                account.setStatus("휴면");
+            } else if ("지급정지".equals(request.status())) {
+                account.setStatus("지급정지");
+            } else {
+                throw new InvalidAccountRequestException("상태는 정상 · 휴면 · 지급정지 중 하나여야 합니다.");
+            }
+        }
+
+        return accountRepository.save(account);
+    }
+
+    // hard delete
+    @Transactional
+    public void deleteOneByAccountNo(String accountNo) {
+        // 이미 삭제된 계좌여도 정상 동작함
+        accountRepository.deleteByAccountNo(accountNo);
+    }
+    @Transactional
+    public void deleteOne(String accountNo) {
+        // 조회 후 삭제하기 때문에 이미 삭제된 계좌 삭제 시 에러 발생
+        Account account = getAccount(accountNo);
+        accountRepository.delete(account);
     }
 }
 

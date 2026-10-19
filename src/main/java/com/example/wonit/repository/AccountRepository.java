@@ -28,4 +28,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     List<Account> findByAccountTypeLike(String accountType);
 
     boolean existsByAccountNo(String accountNo);
+
+    Account deleteByAccountNo(String accountNo);
 }
